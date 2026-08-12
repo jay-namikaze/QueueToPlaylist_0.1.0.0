@@ -1,0 +1,18 @@
+{
+  "guid": "a6a9f1cf-83d6-4f38-9db2-6a65c4c1c623",
+  "name": "Queue to Playlist",
+  "overview": "Next-up queue, playlist shuffle/randomizer, and a dice or wheel picker for video libraries.",
+  "description": "Adds an authenticated queue plan API and optional web UI for reducing decision fatigue when choosing what to watch.",
+  "owner": "Queue to Playlist contributors",
+  "category": "General",
+  "versions": [
+    {
+      "version": "0.1.0.0",
+      "changelog": "Initial Jellyfin 10.11.11 prototype.",
+      "targetAbi": "10.11.0.0",
+      "sourceUrl": "https://example.invalid/queue-to-playlist/releases/0.1.0.0/QueueToPlaylist.zip",
+      "checksum": "",
+      "timestamp": "2026-08-11T00:00:00Z"
+    }
+  ]
+}

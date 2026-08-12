@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Queue to Playlist</title></head>
+<body>
+<div data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+  <div data-role="content">
+    <div class="content-primary">
+      <form class="queueToPlaylistConfigForm">
+        <h1>Queue to Playlist</h1>
+        <p>These settings control the What Should I Watch? picker. The companion web script is optional.</p>
+        <label for="candidatePoolSize">Candidate pool size</label>
+        <input id="candidatePoolSize" type="number" min="10" max="1000" />
+        <label><input id="excludePlayedByDefault" type="checkbox" /> Hide played items by default</label>
+        <label><input id="preferUnwatched" type="checkbox" /> Prefer unwatched items</label>
+        <button type="submit" is="emby-button" class="raised button-submit">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const page = document.querySelector('.queueToPlaylistConfigForm');
+  const api = window.ApiClient;
+  if (!page || !api) return;
+  const pool = document.getElementById('candidatePoolSize');
+  const hide = document.getElementById('excludePlayedByDefault');
+  const prefer = document.getElementById('preferUnwatched');
+  const load = () => api.getPluginConfiguration('a6a9f1cf-83d6-4f38-9db2-6a65c4c1c623').then(c => {
+    pool.value = c.CandidatePoolSize || 250;
+    hide.checked = c.ExcludePlayedByDefault !== false;
+    prefer.checked = c.PreferUnwatched !== false;
+  });
+  page.addEventListener('submit', e => {
+    e.preventDefault();
+    api.getPluginConfiguration('a6a9f1cf-83d6-4f38-9db2-6a65c4c1c623').then(c => {
+      c.CandidatePoolSize = Math.max(10, Math.min(1000, Number(pool.value) || 250));
+      c.ExcludePlayedByDefault = hide.checked;
+      c.PreferUnwatched = prefer.checked;
+      return api.updatePluginConfiguration('a6a9f1cf-83d6-4f38-9db2-6a65c4c1c623', c);
+    }).then(result => Dashboard.processPluginConfigurationUpdateResult(result));
+  });
+  load();
+})();
+</script>
+</body>
+</html>
