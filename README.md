@@ -31,6 +31,18 @@ Copy the published DLL (and its PDB when debugging) into a folder named
 locations are `C:\ProgramData\Jellyfin\Server\plugins` on Windows and
 `/var/lib/jellyfin/plugins` on Debian packages; use the path shown by your Jellyfin installation.
 
+## Easiest GitHub release workflow
+
+After uploading this project to GitHub, commit the files under `.github/workflows/`. Then create a
+version tag from the repository's **Releases → Draft a new release** page, using a tag such as
+`v0.1.0`. GitHub Actions will compile the plugin and attach
+`QueueToPlaylist_0.1.0.zip` to that release. Download that ZIP, extract the inner
+`QueueToPlaylist_0.1.0` folder into Jellyfin's `plugins` directory, and restart Jellyfin.
+
+The workflow also stores the ZIP as an Actions artifact, so you can test a build before publishing
+a release. The repository must have Actions enabled and the first run may take a few minutes while
+NuGet downloads the Jellyfin 10.11.11 dependencies.
+
 ## Install the companion UI
 
 Add the contents of [`web/queue-to-playlist.js`](web/queue-to-playlist.js) and
