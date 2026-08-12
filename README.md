@@ -17,8 +17,8 @@ be included in a custom `jellyfin-web` build.
 
 ## Build
 
-The project targets `net8.0` and references the Jellyfin 10.11.11 packages. On a machine with the
-.NET 8 SDK:
+The project targets `net9.0` and references the Jellyfin 10.11.11 packages. On a machine with the
+.NET 9 SDK:
 
 ```powershell
 dotnet restore .\Jellyfin.Plugin.QueueToPlaylist\Jellyfin.Plugin.QueueToPlaylist.csproj
